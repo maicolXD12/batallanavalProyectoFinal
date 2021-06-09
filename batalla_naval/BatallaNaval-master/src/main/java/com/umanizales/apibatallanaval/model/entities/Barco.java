@@ -4,18 +4,18 @@ import javax.persistence.*;
 
 @Entity
 public class Barco {
-    private int id;
+    private String id;
     private String nombre;
     private short numeroCasillas;
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,4 +47,15 @@ public class Barco {
                 ", numeroCasillas=" + numeroCasillas +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof String) {
+            if (o.toString().equals(this.id)) {
+                return false;
+            }
+        }
+        return false;
+    }
+
 }

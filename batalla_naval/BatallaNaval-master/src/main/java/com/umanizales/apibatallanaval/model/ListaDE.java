@@ -1,79 +1,82 @@
 package com.umanizales.apibatallanaval.model;
 
-import com.umanizales.apibatallanaval.model.dto.CoordenadaDTO;
-import com.umanizales.apibatallanaval.model.dto.DistribucionBarcoDTO;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class ListaDE implements Serializable {
     private NodoDE cabeza;
     private int cont;
 
-    public void adicionarNodo(Object dato){
-        if(cabeza == null)
-        {
+    public ListaDE() {
+        this.cont = 0;
+    }
+
+    public NodoDE getCabeza() {
+        return cabeza;
+    }
+
+    public void setCabeza(NodoDE cabeza) {
+        this.cabeza = cabeza;
+    }
+
+
+    public void adicionarNodo(Object dato) {
+        if (cabeza == null) {
             cabeza = new NodoDE(dato);
-        }
-        else
-        {
-            //LLamar a mi ayudante y ubicarme en el último
+            cont++;
+        } else {
             NodoDE temp = cabeza;
-            while(temp.getSiguiente()!=null)
-            {
-                temp= temp.getSiguiente();
+            while (temp.getSiguiente() != null) {
+                temp = temp.getSiguiente();
             }
-            ///Parado en el ultimo
+            // En el ultimo
             temp.setSiguiente(new NodoDE(dato));
-            temp.getSiguiente().setAnterior(temp);
+            cont++;
         }
-        cont++;
     }
 
-    public void adicionarNodoAlInicio(Object dato){
-        if(cabeza == null)
-        {
+    public void adicionarNodoAlInicio(Object dato) {
+        if (cabeza == null) {
             cabeza = new NodoDE(dato);
+            cont++;
+        } else {
+            NodoDE temp = new NodoDE(dato);
+            temp.setSiguiente(cabeza);
+            cabeza = temp;
+            cont++;
         }
-
     }
-    public ListaDE clonarLista()
-    {
-        ListaDE listaCopia= new ListaDE();
+
+    public String listadoNodos() {
+        String listado = "";
         NodoDE temp = cabeza;
-        while(temp!=null)
-        {
-            listaCopia.adicionarNodo(temp.getDato());
-            temp= temp.getSiguiente();
+        while (temp != null) {
+            listado = listado + temp.getDato();
+            temp = temp.getSiguiente();
         }
-        return listaCopia;
+
+        return listado;
     }
 
-    public boolean validarExistenciaCoordenadas(CoordenadaDTO[] coordenadas)
-    {
-        if(cabeza !=null)
-        {
+    public int getCont() {
+        return cont;
+    }
+
+    public Object encontrarDatoxid(String id) {
+        if (cabeza != null) {
             NodoDE temp = cabeza;
-            while(temp != null)
-            {
-                for(CoordenadaDTO coord: coordenadas)
-                {
-                    if(((DistribucionBarcoDTO) temp.getDato()).validarExistenciaCoordenada(coord))
-                    {
-                        return true;
-                    }
+            while (temp != null) {
+                if (temp.getDato().equals(id)) {
+                    return temp.getDato();
                 }
-                temp= temp.getSiguiente();
+                temp = temp.getSiguiente();
             }
         }
-        return false;
+        return null;
     }
-
-
 }

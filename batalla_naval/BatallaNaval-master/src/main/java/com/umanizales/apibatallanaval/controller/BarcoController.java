@@ -1,5 +1,6 @@
 package com.umanizales.apibatallanaval.controller;
 
+import com.umanizales.apibatallanaval.model.ListaDE;
 import com.umanizales.apibatallanaval.model.entities.Barco;
 import com.umanizales.apibatallanaval.service.BarcoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class BarcoController {
     private BarcoService barcoService;
+    private ListaDE listaDE;
     @Autowired
     public BarcoController(BarcoService barcoService)
     {
@@ -29,4 +31,6 @@ public class BarcoController {
     {
         return barcoService.create(barco);
     }
+
+
 }

@@ -5,25 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+
 //comentario
 @Getter
 @Setter
 @AllArgsConstructor
 public class CoordenadaDTO implements Serializable {
-    private int x;
-    private int y;
+    private int fila;
+    private int col;
     private boolean estado;
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof CoordenadaDTO)
-        {
-            CoordenadaDTO objDTO= (CoordenadaDTO) obj;
-            if(this.x == objDTO.getX() && this.y == objDTO.getY())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 }
+
+
+
